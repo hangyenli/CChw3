@@ -1,0 +1,15 @@
+{
+  "name": "untitled1",
+  "version": "1.0.0",
+  "scripts": {
+    "hw2": "node hw2.js",
+    "hw3": "node hw3.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.17.1",
+    "ibm-watson": "^5.7.1"
+  }
+}

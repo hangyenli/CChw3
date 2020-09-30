@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+
+</head>
+<body>
+
+
+
+<!-- Begin page content -->
+<main role="main" class="container" ng-app="myApp" ng-controller="myCtrl">
+    <h3>Welcome to personality insights</h3>
+    <div ng-app="">
+        <p>Content to analyze : </p>
+        <textarea id="w3review" name="w3review" rows="10" cols="80" ng-model="content"></textarea>
+        <button ng-click="submit()">Analyze</button>
+    </div>
+    <h3 ng-if="res">Here is your result</h3>
+
+    <table class="table" ng-if="res">
+        <thead>
+        <tr>
+            <th scope="col">trait_id</th>
+            <th scope="col">name</th>
+            <th scope="col">category</th>
+            <th scope="col">percentile</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="x in res.data.result.personality">
+            <th scope="row">{{x.trait_id}}</th>
+            <td>{{x.name}}</td>
+            <td>{{x.category}}</td>
+            <td>{{x.percentile}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class="table" ng-if="res">
+        <thead>
+        <tr>
+            <th scope="col">trait_id</th>
+            <th scope="col">name</th>
+            <th scope="col">category</th>
+            <th scope="col">percentile</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="x in res.data.result.values">
+            <th scope="row">{{x.trait_id}}</th>
+            <td>{{x.name}}</td>
+            <td>{{x.category}}</td>
+            <td>{{x.percentile}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</main>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+
+<script>
+    var app = angular.module("myApp", []);
+    app.controller("myCtrl", function($scope,$http) {
+        $scope.content = "i am very happy to take this computer science course, cognitive computing. I am very excited about the next homework assignment, because i love this course so much. I dont want to miss any of the lectures. If it is possible, i would like to take this course again, in the next semester. I am really happy to be here. It is raining outside. i hope it will stop after 4 hours, otherwise i will not be able to join the class physically tomorrow, which is such a pity. I really hope this course can last for 5 hours, so we have enough time to interact with professor and other students and teaching assist";
+        $scope.submit=function () {
+            $http({
+                method: 'POST',
+                data:{
+                    text:$scope.content
+                },
+                url: '/'
+            }).then(function successCallback(response) {
+                // this callback will be called asynchronously
+                // when the response is available
+                console.log(response)
+                $scope.res=response;
+
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+        }
+
+    });
+</script>
+</body>
+</html>
+
